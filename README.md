@@ -1,53 +1,53 @@
-# 📚 Historias IA - Creador de Cuentos Infantiles con Inteligencia Artificial
+# Historias IA - Creador de cuentos infantiles con Inteligencia Artificial
 
-Historias IA es una aplicación web interactiva que permite a los usuarios crear, gestionar y leer cuentos infantiles personalizados. El proyecto integra herramientas de Inteligencia Artificial para generar automáticamente ilustraciones y textos narrativos cortos basados en las descripciones de las escenas (prompts) proporcionadas por el usuario.
-
----
-
-## 📖 ¿De qué trata el proyecto?
-
-La aplicación ofrece un flujo completo para la creación de libros ilustrados:
-1. **Registro e Inicio de Sesión:** Cada usuario cuenta con un espacio personal protegido donde almacena sus libros.
-2. **Dashboard Personal:** Visualización de la colección de libros creados por el usuario, con opciones para verlos, añadirles páginas o eliminarlos.
-3. **Creador de Historias:** Permite definir el título y una breve descripción de una nueva historia.
-4. **Generador de Páginas:** Para cada página del libro, el usuario introduce un *prompt* (ej. *"Un osito navegando en un barco de papel sobre un río de estrellas"*). A partir de esta descripción, la aplicación:
-   * Genera una ilustración mágica utilizando IA.
-   * Redacta una narrativa infantil corta (máximo 50 palabras) coherente con la escena.
-5. **Lectura del Cuento:** Una interfaz limpia para hojear el libro, ver las ilustraciones creadas y repasar los prompts originales utilizados.
+Historias IA es una aplicación web interactiva pensada para crear, gestionar y leer cuentos infantiles personalizados de manera muy sencilla. La gracia del proyecto es que usa Inteligencia Artificial para generar de forma automática tanto las ilustraciones como los textos narrativos cortos de cada página a partir de las descripciones que el usuario escriba.
 
 ---
 
-## 💻 Herramientas del Frontend
+## De qué va el proyecto
 
-El frontend está desarrollado como una Single Page Application (SPA) moderna, rápida y responsiva:
-* **React 19:** Biblioteca principal para la creación de la interfaz mediante componentes reactivos.
-* **Vite:** Herramienta de construcción y servidor de desarrollo ultrarrápido.
-* **React Router DOM v6:** Gestión de la navegación del lado del cliente, implementando rutas protegidas (`ProtectedRoute`) para restringir el acceso a usuarios no autenticados.
-* **Tailwind CSS v4:** Framework de diseño para aplicar estilos modernos y adaptables a dispositivos móviles y de escritorio.
-* **Context API (AuthContext):** Manejo global del estado de autenticación (usuario, inicio de sesión, registro y persistencia de tokens de sesión en `localStorage`).
-
----
-
-## ⚙️ Herramientas del Backend
-
-El servidor backend expone una API REST robusta que maneja la lógica de negocio y la integración con servicios externos:
-* **Node.js:** Entorno de ejecución para Javascript en el servidor.
-* **Express:** Framework web ligero para estructurar las rutas y middlewares.
-* **JSON Web Tokens (JWT):** Generación de tokens seguros y middleware de autorización para validar las solicitudes en las rutas protegidas.
-* **bcryptjs:** Algoritmo para el hashing y encriptación segura de contraseñas de usuarios.
-* **CORS & dotenv:** Permite peticiones de origen cruzado seguras y la configuración del entorno mediante variables de configuración locales.
-* **Integración con Pollinations AI:** Conexión directa mediante llamadas HTTP a las APIs gratuitas de Pollinations AI para la generación de imágenes y generación de texto narrativa.
+La aplicación te permite hacer todo el flujo de creación de un libro ilustrado:
+1. Registro e inicio de sesión para que cada usuario tenga su propia colección de cuentos guardada de forma segura.
+2. Un panel principal (Dashboard) para ver todos tus cuentos creados, abrirlos, añadirles nuevas páginas o borrarlos si ya no los quieres.
+3. Un creador de historias muy simple donde solo tienes que poner un título y una descripción general.
+4. Un generador de páginas donde escribes una descripción (prompt) de la escena que te imaginas (por ejemplo: "un osito viajando en un cohete de cartón hacia la luna") y la app se encarga de:
+   * Generar una ilustración mágica con IA.
+   * Redactar un texto infantil corto (máximo 50 palabras) que combine con la escena.
+5. Un visor del cuento para hojear el libro terminado, ver las imágenes a pantalla completa y repasar qué prompts usaste para crearlas.
 
 ---
 
-## 🗄️ Base de Datos Utilizada
+## Qué usamos en el Frontend
 
-La persistencia de datos del proyecto se gestiona mediante una base de datos relacional:
-* **MySQL:** Motor de base de datos relacional utilizado para almacenar toda la información del sistema.
-* **mysql2/promise:** Controlador para Node.js que implementa el uso de promesas y un pool de conexiones optimizado para realizar consultas asíncronas de manera eficiente.
+Para armar la interfaz del cliente elegimos estas herramientas:
+* React 19: La base para estructurar toda la aplicación web mediante componentes.
+* Vite: Para levantar el servidor de desarrollo y compilar todo súper rápido.
+* React Router DOM v6: Para manejar la navegación entre páginas y proteger las rutas que requieren inicio de sesión.
+* Tailwind CSS v4: Para que el diseño se vea moderno, limpio y se adapte bien a pantallas de celular y computadora sin complicarnos con el CSS.
+* Context API (AuthContext): Para controlar el estado de inicio de sesión en toda la app y guardar el token en el navegador (localStorage) para que no tengas que loguearte cada vez.
 
-### Estructura de Tablas
-El servidor backend inicializa automáticamente las siguientes tablas al arrancar:
-1. **`users`:** Almacena la información de los usuarios (ID, nombre de usuario, correo electrónico, contraseña encriptada y URL del avatar).
-2. **`stories`:** Contiene los cuentos creados (ID, user_id, título, descripción y marcas de tiempo). Cuenta con una relación de clave foránea hacia la tabla `users` con eliminación en cascada.
-3. **`story_pages`:** Registra las páginas pertenecientes a cada libro (ID, story_id, número de página, prompt, URL de la imagen y texto de la narrativa). Vinculada a `stories` con eliminación en cascada para facilitar la limpieza de datos.
+---
+
+## Qué usamos en el Backend
+
+El servidor que atiende las peticiones y procesa los datos está construido con:
+* Node.js: El entorno de ejecución para correr JavaScript del lado del servidor.
+* Express: Para estructurar las rutas de la API de forma organizada.
+* JSON Web Tokens (JWT): Para la autenticación de usuarios de forma segura.
+* bcryptjs: Para encriptar las contraseñas en la base de datos y que nadie pueda verlas.
+* CORS y dotenv: Para configurar variables de entorno locales de forma segura y permitir la conexión con el frontend.
+* Integración con la API de Pollinations AI: Hacemos llamadas directas para generar las imágenes y los textos de los cuentos de forma gratuita y al instante.
+
+---
+
+## Qué base de datos elegimos
+
+Toda la información del proyecto se almacena de forma estructurada en:
+* MySQL: El motor de base de datos relacional.
+* mysql2/promise: El paquete que nos permite hacer consultas de forma asíncrona desde Node.js usando promesas.
+
+### Cómo está organizada la base de datos
+Cuando el servidor del backend arranca por primera vez, crea de forma automática estas tablas:
+1. users: Guarda a los usuarios registrados con su nombre, correo, contraseña encriptada y su foto de avatar.
+2. stories: Almacena cada libro de cuentos creado, asociado al usuario que lo armó. Si borras un usuario, sus libros se borran automáticamente en cascada.
+3. story_pages: Guarda las páginas de cada libro (el número de página, el texto de la historia, la URL de la imagen y el prompt original). También están vinculadas con borrado en cascada para no dejar basura en la base de datos si eliminas un libro.

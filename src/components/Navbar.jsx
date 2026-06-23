@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { BookOpen, LogOut, User, LayoutDashboard } from 'lucide-react';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -10,37 +11,40 @@ export default function Navbar() {
     navigate('/login');
   };
 
+  if (!user) return null;
+
   return (
-    <nav className="bg-white border-b border-gray-200 shadow-sm">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2 text-gray-800 font-semibold text-lg no-underline">
-            <span className="text-2xl">📖</span>
+    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          
+       
+          <Link to="/dashboard" className="flex items-center gap-2 font-bold text-zinc-900">
+            <div className="bg-zinc-900 p-1.5 rounded-lg text-white">
+              <BookOpen className="h-5 w-5" />
+            </div>
             <span>Mis Historias IA</span>
           </Link>
 
-          {user && (
-            <div className="flex items-center gap-4">
-              <Link
-                to="/dashboard"
-                className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-medium no-underline"
-              >
-                Mis Libros
-              </Link>
-              <Link
-                to="/profile"
-                className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-medium no-underline"
-              >
-                Perfil
-              </Link>
-              <button
-                onClick={handleLogout}
-                className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer border-none"
-              >
-                Cerrar Sesión
-              </button>
-            </div>
-          )}
+       
+          <div className="flex items-center gap-6">
+            <Link to="/dashboard" className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors flex items-center gap-2">
+              <LayoutDashboard className="h-4 w-4" />
+              Mis Libros
+            </Link>
+            <Link to="/profile" className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors flex items-center gap-2">
+              <User className="h-4 w-4" />
+              Perfil
+            </Link>
+            
+            <button
+              onClick={handleLogout}
+              className="inline-flex items-center gap-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 px-4 py-2 text-sm font-semibold text-zinc-900 transition-all"
+            >
+              <LogOut className="h-4 w-4" />
+              Salir
+            </button>
+          </div>
         </div>
       </div>
     </nav>
